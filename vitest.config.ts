@@ -3,6 +3,8 @@ import react from "@vitejs/plugin-react-swc";
 import path from "path";
 
 export default defineConfig({
+  
+  base: '/ktp-connect/',
   plugins: [react()],
   test: {
     environment: "jsdom",
@@ -13,8 +15,5 @@ export default defineConfig({
   resolve: {
     alias: { "@": path.resolve(__dirname, "./src") },
   },
-  export default defineConfig({
-  base: '/ktp-connect/',
-  // ... other config
-})
+
 });
