@@ -1,14 +1,16 @@
 import { Card, CardContent } from "@/components/ui/card";
-import { Users, UserCheck, UserX, LayoutGrid } from "lucide-react";
+import { Users, UserCheck, UserX, LayoutGrid, BookOpen, UsersRound } from "lucide-react";
 import { Member, GROUPS_LIST } from "@/data/mockData";
 
 const StatCards = ({ members }: { members: Member[] }) => {
   const total = members.length;
   const male = members.filter(m => m.gender === "Male").length;
   const female = total - male;
+  const kristianMag = members.filter(m => m.kristianMagazine).length;
+  const dualMember = members.filter(m => m.dualMember).length;
 
   return (
-    <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+    <div className="grid grid-cols-2 lg:grid-cols-3 gap-3">
       <Card className="border-primary/20">
         <CardContent className="pt-4 pb-3 px-4">
           <div className="flex items-center gap-2 mb-1"><Users className="h-5 w-5 text-primary" /><span className="text-xs text-muted-foreground">Total</span></div>
@@ -23,11 +25,23 @@ const StatCards = ({ members }: { members: Member[] }) => {
       </Card>
       <Card className="border-primary/20">
         <CardContent className="pt-4 pb-3 px-4">
-          <div className="flex items-center gap-2 mb-1"><UserX className="h-5 w-5 text-gold" /><span className="text-xs text-muted-foreground">Female</span></div>
-          <p className="text-2xl font-bold text-gold">{female}</p>
+          <div className="flex items-center gap-2 mb-1"><UserX className="h-5 w-5 text-accent" /><span className="text-xs text-muted-foreground">Female</span></div>
+          <p className="text-2xl font-bold text-accent">{female}</p>
         </CardContent>
       </Card>
-      <Card className="border-primary/20 col-span-2 lg:col-span-1">
+      <Card className="border-primary/20">
+        <CardContent className="pt-4 pb-3 px-4">
+          <div className="flex items-center gap-2 mb-1"><BookOpen className="h-5 w-5 text-primary" /><span className="text-xs text-muted-foreground">Kristian Thalai</span></div>
+          <p className="text-2xl font-bold text-primary">{kristianMag}</p>
+        </CardContent>
+      </Card>
+      <Card className="border-primary/20">
+        <CardContent className="pt-4 pb-3 px-4">
+          <div className="flex items-center gap-2 mb-1"><UsersRound className="h-5 w-5 text-primary" /><span className="text-xs text-muted-foreground">Dual Member</span></div>
+          <p className="text-2xl font-bold text-primary">{dualMember}</p>
+        </CardContent>
+      </Card>
+      <Card className="border-primary/20">
         <CardContent className="pt-4 pb-3 px-4">
           <div className="flex items-center gap-2 mb-1"><LayoutGrid className="h-5 w-5 text-primary" /><span className="text-xs text-muted-foreground">Groups</span></div>
           <div className="flex flex-wrap gap-1 mt-1">
