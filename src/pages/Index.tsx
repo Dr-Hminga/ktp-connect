@@ -8,6 +8,7 @@ import RegistrationModal from "@/components/RegistrationModal";
 import LoginModal from "@/components/LoginModal";
 import { Button } from "@/components/ui/button";
 import { Plus, LogIn, LogOut, Shield } from "lucide-react";
+import MemberTable from "@/components/MemberTable";
 
 const initialMembers = generateMockMembers();
 
