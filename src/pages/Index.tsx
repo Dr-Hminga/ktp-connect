@@ -8,6 +8,7 @@ import RegistrationModal from "@/components/RegistrationModal";
 import LoginModal from "@/components/LoginModal";
 import { Button } from "@/components/ui/button";
 import { Plus, LogIn, LogOut, Shield } from "lucide-react";
+import MemberTable from "@/components/MemberTable";
 
 const initialMembers = generateMockMembers();
 
@@ -17,12 +18,33 @@ const Index = () => {
   const [announcement, setAnnouncement] = useState("Welcome to KTP Member Management! Sunday service at 10 AM. Youth fellowship every Friday evening.");
   const [regOpen, setRegOpen] = useState(false);
   const [loginOpen, setLoginOpen] = useState(false);
+  const [editMember, setEditMember] = useState<Member | null>(null);
 
   let nextId = useMemo(() => Math.max(...members.map(m => Number(m.id))) + 1, [members]);
 
   const addMember = (data: Omit<Member, "id">) => {
     setMembers(prev => [...prev, { ...data, id: String(nextId++) }]);
   };
+
+  const handleEdit = (m: Member) => {
+    setEditMember(m);
+    setRegOpen(true);
+  };
+
+  const handleDelete = (id: string) => {
+    setMembers(prev => prev.filter(m => m.id !== id));
+  };
+
+  const handleSubmit = (data: Omit<Member, "id">) => {
+    if (editMember) {
+      setMembers(prev => prev.map(m => m.id === editMember.id ? { ...data, id: editMember.id } : m));
+      setEditMember(null);
+    } else {
+      addMember(data);
+    }
+  };
+
+  const isAdmin = user.role === "super_admin" || user.role === "group_leader";
 
   return (
     <div className="min-h-screen bg-background pb-24">
@@ -47,6 +69,9 @@ const Index = () => {
         <AnnouncementBoard text={announcement} onUpdate={setAnnouncement} />
         <ProgramSheet />
         <StatCards members={members} />
+        {isAdmin && (
+          <MemberTable members={members} onEdit={handleEdit} onDelete={handleDelete} />
+        )}
       </main>
 
       {/* FAB */}
@@ -60,9 +85,9 @@ const Index = () => {
 
       <RegistrationModal
         open={regOpen}
-        onOpenChange={setRegOpen}
-        onSubmit={addMember}
-        editMember={null}
+        onOpenChange={(open) => { setRegOpen(open); if (!open) setEditMember(null); }}
+        onSubmit={handleSubmit}
+        editMember={editMember}
         allowedGroup={user.role === "group_leader" ? user.group : undefined}
       />
       <LoginModal open={loginOpen} onOpenChange={setLoginOpen} />
