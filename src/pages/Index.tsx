@@ -85,9 +85,9 @@ const Index = () => {
 
       <RegistrationModal
         open={regOpen}
-        onOpenChange={setRegOpen}
-        onSubmit={addMember}
-        editMember={null}
+        onOpenChange={(open) => { setRegOpen(open); if (!open) setEditMember(null); }}
+        onSubmit={handleSubmit}
+        editMember={editMember}
         allowedGroup={user.role === "group_leader" ? user.group : undefined}
       />
       <LoginModal open={loginOpen} onOpenChange={setLoginOpen} />
