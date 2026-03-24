@@ -69,6 +69,9 @@ const Index = () => {
         <AnnouncementBoard text={announcement} onUpdate={setAnnouncement} />
         <ProgramSheet />
         <StatCards members={members} />
+        {isAdmin && (
+          <MemberTable members={members} onEdit={handleEdit} onDelete={handleDelete} />
+        )}
       </main>
 
       {/* FAB */}
