@@ -15,7 +15,7 @@ const initialMembers = generateMockMembers();
 const Index = () => {
   const { user, logout } = useAuth();
   const [members, setMembers] = useState<Member[]>(initialMembers);
-  const [announcement, setAnnouncement] = useState("Welcome to KTP Member Management! Sunday service at 10 AM. Youth fellowship every Friday evening.");
+  const [announcement, setAnnouncement] = useState("Welcome to KTPRVL, Sunday service at 10 AM. Youth fellowship every Friday evening.");
   const [regOpen, setRegOpen] = useState(false);
   const [loginOpen, setLoginOpen] = useState(false);
   const [editMember, setEditMember] = useState<Member | null>(null);
@@ -52,7 +52,7 @@ const Index = () => {
       <header className="bg-primary text-primary-foreground px-4 py-4 shadow-md">
         <div className="max-w-5xl mx-auto flex items-center justify-between">
           <div>
-            <h1 className="text-lg font-bold tracking-tight">KTP Member Management</h1>
+            <h1 className="text-lg font-bold tracking-tight">KTPRVL</h1>
             {user.role !== "public" && (
               <p className="text-xs opacity-80 flex items-center gap-1"><Shield className="h-3 w-3" />{user.label}</p>
             )}
