@@ -99,24 +99,16 @@ const MemberTable = ({ members, onEdit, onDelete }: Props) => {
           <TableHeader>
             <TableRow className="bg-primary/5">
               <TableHead>Name</TableHead>
-              <TableHead>Gender</TableHead>
-              <TableHead className="hidden sm:table-cell">Father</TableHead>
-              <TableHead>Phone</TableHead>
-              <TableHead>Upa Bial</TableHead>
               <TableHead>Group</TableHead>
               {showActions && <TableHead className="text-right">Actions</TableHead>}
             </TableRow>
           </TableHeader>
           <TableBody>
             {filtered.length === 0 ? (
-              <TableRow><TableCell colSpan={showActions ? 7 : 6} className="text-center text-muted-foreground py-8">No members found</TableCell></TableRow>
+              <TableRow><TableCell colSpan={showActions ? 3 : 2} className="text-center text-muted-foreground py-8">No members found</TableCell></TableRow>
             ) : filtered.map(m => (
               <TableRow key={m.id}>
                 <TableCell className="font-medium">{m.fullName}</TableCell>
-                <TableCell>{m.gender}</TableCell>
-                <TableCell className="hidden sm:table-cell">{m.fatherName}</TableCell>
-                <TableCell>{m.phone}</TableCell>
-                <TableCell>{m.upaBial}</TableCell>
                 <TableCell><span className="bg-secondary text-secondary-foreground text-xs px-2 py-0.5 rounded-full">{m.group}</span></TableCell>
                 {showActions && (
                   <TableCell className="text-right space-x-1">
