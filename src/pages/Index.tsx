@@ -6,6 +6,7 @@ import StatCards from "@/components/StatCards";
 import ProgramSheet from "@/components/ProgramSheet";
 import RegistrationModal from "@/components/RegistrationModal";
 import LoginModal from "@/components/LoginModal";
+import ContentPage from "@/components/ContentPage";
 import { Button } from "@/components/ui/button";
 import { Plus, LogIn, LogOut, Shield, Menu } from "lucide-react";
 import {
@@ -18,6 +19,8 @@ import MemberTable from "@/components/MemberTable";
 
 const initialMembers = generateMockMembers();
 
+const MENU_PAGES = ["Branch C/m List", "Group C/m List", "Sub C/m List", "Branch Inkaihhruaina"] as const;
+
 const Index = () => {
   const { user, logout } = useAuth();
   const [members, setMembers] = useState<Member[]>(initialMembers);
@@ -25,6 +28,13 @@ const Index = () => {
   const [regOpen, setRegOpen] = useState(false);
   const [loginOpen, setLoginOpen] = useState(false);
   const [editMember, setEditMember] = useState<Member | null>(null);
+  const [pageContents, setPageContents] = useState<Record<string, string>>({
+    "Branch C/m List": "",
+    "Group C/m List": "",
+    "Sub C/m List": "",
+    "Branch Inkaihhruaina": "",
+  });
+  const [activePage, setActivePage] = useState<string | null>(null);
 
   let nextId = useMemo(() => Math.max(...members.map(m => Number(m.id))) + 1, [members]);
 
