@@ -86,10 +86,11 @@ const Index = () => {
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-56">
-                <DropdownMenuItem>Branch C/m List</DropdownMenuItem>
-                <DropdownMenuItem>Group C/m List</DropdownMenuItem>
-                <DropdownMenuItem>Sub C/m List</DropdownMenuItem>
-                <DropdownMenuItem>Branch Inkaihhruaina</DropdownMenuItem>
+                {MENU_PAGES.map((page) => (
+                  <DropdownMenuItem key={page} onClick={() => setActivePage(page)}>
+                    {page}
+                  </DropdownMenuItem>
+                ))}
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
