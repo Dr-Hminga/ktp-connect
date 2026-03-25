@@ -68,11 +68,14 @@ const Index = () => {
       {/* Header */}
       <header className="bg-primary text-primary-foreground px-4 py-4 shadow-md">
         <div className="max-w-5xl mx-auto flex items-center justify-between">
-          <div>
-            <h1 className="text-lg font-bold tracking-tight">KTPRVL</h1>
-            {user.role !== "public" && (
-              <p className="text-xs opacity-80 flex items-center gap-1"><Shield className="h-3 w-3" />{user.label}</p>
-            )}
+          <div className="flex items-center gap-2">
+            <img src={ktpLogo} alt="KTP Logo" className="h-10 w-10 rounded-full bg-white object-contain" />
+            <div>
+              <h1 className="text-lg font-bold tracking-tight">KTPRVL</h1>
+              {user.role !== "public" && (
+                <p className="text-xs opacity-80 flex items-center gap-1"><Shield className="h-3 w-3" />{user.label}</p>
+              )}
+            </div>
           </div>
           <div className="flex items-center gap-2">
             {user.role === "public" ? (
