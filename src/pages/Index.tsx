@@ -9,6 +9,7 @@ import LoginModal from "@/components/LoginModal";
 import ContentPage from "@/components/ContentPage";
 import { Button } from "@/components/ui/button";
 import { Plus, LogIn, LogOut, Shield, Menu } from "lucide-react";
+import ktpLogo from "@/assets/ktp-logo.png";
 import {
   DropdownMenu,
   DropdownMenuContent,
