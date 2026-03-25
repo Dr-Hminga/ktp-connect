@@ -7,7 +7,13 @@ import ProgramSheet from "@/components/ProgramSheet";
 import RegistrationModal from "@/components/RegistrationModal";
 import LoginModal from "@/components/LoginModal";
 import { Button } from "@/components/ui/button";
-import { Plus, LogIn, LogOut, Shield } from "lucide-react";
+import { Plus, LogIn, LogOut, Shield, Menu } from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import MemberTable from "@/components/MemberTable";
 
 const initialMembers = generateMockMembers();
@@ -57,11 +63,26 @@ const Index = () => {
               <p className="text-xs opacity-80 flex items-center gap-1"><Shield className="h-3 w-3" />{user.label}</p>
             )}
           </div>
-          {user.role === "public" ? (
-            <Button variant="secondary" size="sm" onClick={() => setLoginOpen(true)} className="gap-1"><LogIn className="h-4 w-4" />Login</Button>
-          ) : (
-            <Button variant="secondary" size="sm" onClick={logout} className="gap-1"><LogOut className="h-4 w-4" />Logout</Button>
-          )}
+          <div className="flex items-center gap-2">
+            {user.role === "public" ? (
+              <Button variant="secondary" size="sm" onClick={() => setLoginOpen(true)} className="gap-1"><LogIn className="h-4 w-4" />Login</Button>
+            ) : (
+              <Button variant="secondary" size="sm" onClick={logout} className="gap-1"><LogOut className="h-4 w-4" />Logout</Button>
+            )}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="secondary" size="icon" className="h-9 w-9">
+                  <Menu className="h-5 w-5" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-56">
+                <DropdownMenuItem>Branch C/m List</DropdownMenuItem>
+                <DropdownMenuItem>Group C/m List</DropdownMenuItem>
+                <DropdownMenuItem>Sub C/m List</DropdownMenuItem>
+                <DropdownMenuItem>Branch Inkaihhruaina</DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
         </div>
       </header>
 
