@@ -123,6 +123,15 @@ const Index = () => {
         allowedGroup={user.role === "group_leader" ? user.group : undefined}
       />
       <LoginModal open={loginOpen} onOpenChange={setLoginOpen} />
+      {activePage && (
+        <ContentPage
+          title={activePage}
+          content={pageContents[activePage]}
+          onUpdate={(content) => setPageContents(prev => ({ ...prev, [activePage]: content }))}
+          open={!!activePage}
+          onOpenChange={(open) => { if (!open) setActivePage(null); }}
+        />
+      )}
     </div>
   );
 };
