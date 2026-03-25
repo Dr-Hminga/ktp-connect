@@ -7,7 +7,13 @@ import ProgramSheet from "@/components/ProgramSheet";
 import RegistrationModal from "@/components/RegistrationModal";
 import LoginModal from "@/components/LoginModal";
 import { Button } from "@/components/ui/button";
-import { Plus, LogIn, LogOut, Shield } from "lucide-react";
+import { Plus, LogIn, LogOut, Shield, Menu } from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import MemberTable from "@/components/MemberTable";
 
 const initialMembers = generateMockMembers();
