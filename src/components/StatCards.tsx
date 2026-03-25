@@ -25,8 +25,8 @@ const StatCards = ({ members }: { members: Member[] }) => {
       </Card>
       <Card className="border-primary/20">
         <CardContent className="pt-4 pb-3 px-4">
-          <div className="flex items-center gap-2 mb-1"><UserCheck className="h-5 w-5" style={{ color: "#f9a8d4" }} /><span className="text-xs text-muted-foreground">Female</span></div>
-          <p className="text-2xl font-bold" style={{ color: "#f9a8d4" }}>{female}</p>
+          <div className="flex items-center gap-2 mb-1"><UserCheck className="h-5 w-5" style={{ color: "#ec4899" }} /><span className="text-xs text-muted-foreground">Female</span></div>
+          <p className="text-2xl font-bold" style={{ color: "#ec4899" }}>{female}</p>
         </CardContent>
       </Card>
       <Card className="border-primary/20">
