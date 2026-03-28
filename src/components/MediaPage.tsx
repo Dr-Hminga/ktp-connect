@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent } from "@/components/ui/card";
-import { Plus, Trash2, ExternalLink, Camera, Video } from "lucide-react";
+import { Plus, Trash2, Camera, Video } from "lucide-react";
 
 interface MediaLink {
   id: string;
