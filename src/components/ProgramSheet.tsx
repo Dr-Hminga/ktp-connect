@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Upload, FileText, Trash2, Eye } from "lucide-react";
 import { toast } from "sonner";
+import PdfViewer from "@/components/PdfViewer";
 import {
   Dialog,
   DialogContent,
@@ -100,28 +101,8 @@ const ProgramSheet = () => {
           <DialogHeader className="p-4 pb-2">
             <DialogTitle className="text-sm font-semibold">{pdfName}</DialogTitle>
           </DialogHeader>
-          <div className="px-4 pb-4 overflow-auto" style={{ maxHeight: "calc(90vh - 80px)" }}>
-            {pdfUrl && (
-              <>
-                {/* iframe for desktop, fallback link for mobile */}
-                <iframe
-                  src={pdfUrl}
-                  className="w-full h-[70vh] rounded-lg border hidden sm:block"
-                  title="Program Sheet"
-                />
-                <div className="sm:hidden flex flex-col items-center gap-3 py-6">
-                  <FileText className="h-12 w-12 text-primary" />
-                  <p className="text-sm text-muted-foreground text-center">
-                    PDF preview is not supported on mobile browsers.
-                  </p>
-                  <a href={pdfUrl} download={pdfName}>
-                    <Button variant="default" size="sm" className="gap-1">
-                      <Eye className="h-4 w-4" /> Download & View PDF
-                    </Button>
-                  </a>
-                </div>
-              </>
-            )}
+          <div className="px-4 pb-4 overflow-auto" style={{ height: "calc(90vh - 80px)" }}>
+            {pdfUrl && <PdfViewer url={pdfUrl} />}
           </div>
         </DialogContent>
       </Dialog>
