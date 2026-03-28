@@ -56,10 +56,10 @@ const MediaPage = () => {
                 href={link.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-xs text-primary hover:underline flex items-center gap-1 truncate"
+                className="text-xs text-primary hover:underline flex items-center gap-1"
               >
                 <ExternalLink className="h-3 w-3 shrink-0" />
-                <span className="truncate">{link.url}</span>
+                <span>Open</span>
               </a>
             </div>
             {isAdmin && (

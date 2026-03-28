@@ -96,17 +96,31 @@ const ProgramSheet = () => {
       </CardContent>
 
       <Dialog open={viewOpen} onOpenChange={setViewOpen}>
-        <DialogContent className="max-w-4xl h-[85vh] p-0">
-          <DialogHeader className="p-4 pb-0">
+        <DialogContent className="max-w-4xl max-h-[90vh] p-0 overflow-hidden">
+          <DialogHeader className="p-4 pb-2">
             <DialogTitle className="text-sm font-semibold">{pdfName}</DialogTitle>
           </DialogHeader>
-          <div className="flex-1 px-4 pb-4 h-full">
+          <div className="px-4 pb-4 overflow-auto" style={{ maxHeight: "calc(90vh - 80px)" }}>
             {pdfUrl && (
-              <iframe
-                src={pdfUrl}
-                className="w-full h-[calc(85vh-80px)] rounded-lg border"
-                title="Program Sheet"
-              />
+              <>
+                {/* iframe for desktop, fallback link for mobile */}
+                <iframe
+                  src={pdfUrl}
+                  className="w-full h-[70vh] rounded-lg border hidden sm:block"
+                  title="Program Sheet"
+                />
+                <div className="sm:hidden flex flex-col items-center gap-3 py-6">
+                  <FileText className="h-12 w-12 text-primary" />
+                  <p className="text-sm text-muted-foreground text-center">
+                    PDF preview is not supported on mobile browsers.
+                  </p>
+                  <a href={pdfUrl} download={pdfName}>
+                    <Button variant="default" size="sm" className="gap-1">
+                      <Eye className="h-4 w-4" /> Download & View PDF
+                    </Button>
+                  </a>
+                </div>
+              </>
             )}
           </div>
         </DialogContent>
