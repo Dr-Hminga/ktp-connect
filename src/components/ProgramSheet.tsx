@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Upload, FileText, Trash2, Eye } from "lucide-react";
 import { toast } from "sonner";
+import PdfViewer from "@/components/PdfViewer";
 import {
   Dialog,
   DialogContent,
@@ -100,21 +101,8 @@ const ProgramSheet = () => {
           <DialogHeader className="p-4 pb-2">
             <DialogTitle className="text-sm font-semibold">{pdfName}</DialogTitle>
           </DialogHeader>
-          <div className="px-4 pb-4" style={{ height: "calc(90vh - 80px)" }}>
-            {pdfUrl && (
-              <object
-                data={pdfUrl}
-                type="application/pdf"
-                className="w-full h-full rounded-lg border"
-                title="Program Sheet"
-              >
-                <iframe
-                  src={`https://docs.google.com/gview?url=${encodeURIComponent(pdfUrl)}&embedded=true`}
-                  className="w-full h-full rounded-lg border"
-                  title="Program Sheet"
-                />
-              </object>
-            )}
+          <div className="px-4 pb-4 overflow-auto" style={{ height: "calc(90vh - 80px)" }}>
+            {pdfUrl && <PdfViewer url={pdfUrl} />}
           </div>
         </DialogContent>
       </Dialog>
