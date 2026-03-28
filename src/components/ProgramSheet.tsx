@@ -100,27 +100,20 @@ const ProgramSheet = () => {
           <DialogHeader className="p-4 pb-2">
             <DialogTitle className="text-sm font-semibold">{pdfName}</DialogTitle>
           </DialogHeader>
-          <div className="px-4 pb-4 overflow-auto" style={{ maxHeight: "calc(90vh - 80px)" }}>
+          <div className="px-4 pb-4" style={{ height: "calc(90vh - 80px)" }}>
             {pdfUrl && (
-              <>
-                {/* iframe for desktop, fallback link for mobile */}
+              <object
+                data={pdfUrl}
+                type="application/pdf"
+                className="w-full h-full rounded-lg border"
+                title="Program Sheet"
+              >
                 <iframe
-                  src={pdfUrl}
-                  className="w-full h-[70vh] rounded-lg border hidden sm:block"
+                  src={`https://docs.google.com/gview?url=${encodeURIComponent(pdfUrl)}&embedded=true`}
+                  className="w-full h-full rounded-lg border"
                   title="Program Sheet"
                 />
-                <div className="sm:hidden flex flex-col items-center gap-3 py-6">
-                  <FileText className="h-12 w-12 text-primary" />
-                  <p className="text-sm text-muted-foreground text-center">
-                    PDF preview is not supported on mobile browsers.
-                  </p>
-                  <a href={pdfUrl} download={pdfName}>
-                    <Button variant="default" size="sm" className="gap-1">
-                      <Eye className="h-4 w-4" /> Download & View PDF
-                    </Button>
-                  </a>
-                </div>
-              </>
+              </object>
             )}
           </div>
         </DialogContent>
