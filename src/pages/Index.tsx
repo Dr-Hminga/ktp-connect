@@ -7,6 +7,9 @@ import ProgramSheet from "@/components/ProgramSheet";
 import RegistrationModal from "@/components/RegistrationModal";
 import LoginModal from "@/components/LoginModal";
 import ContentPage from "@/components/ContentPage";
+import BottomNav from "@/components/BottomNav";
+import MediaPage from "@/components/MediaPage";
+import SettingsPage from "@/components/SettingsPage";
 import { Button } from "@/components/ui/button";
 import { Plus, LogIn, LogOut, Shield, Menu } from "lucide-react";
 import ktpLogo from "@/assets/ktp-logo.png";
@@ -36,6 +39,7 @@ const Index = () => {
     "Branch Inkaihhruaina": "",
   });
   const [activePage, setActivePage] = useState<string | null>(null);
+  const [activeTab, setActiveTab] = useState<"home" | "media" | "settings">("home");
 
   let nextId = useMemo(() => Math.max(...members.map(m => Number(m.id))) + 1, [members]);
 
@@ -64,7 +68,7 @@ const Index = () => {
   const isAdmin = user.role === "super_admin" || user.role === "group_leader";
 
   return (
-    <div className="min-h-screen bg-background pb-24">
+    <div className="min-h-screen bg-background pb-20">
       {/* Header */}
       <header className="bg-primary text-primary-foreground px-4 py-4 shadow-md">
         <div className="max-w-5xl mx-auto flex items-center justify-between">
@@ -102,22 +106,32 @@ const Index = () => {
       </header>
 
       <main className="max-w-5xl mx-auto px-4 py-4 space-y-4">
-        <AnnouncementBoard text={announcement} onUpdate={setAnnouncement} />
-        <ProgramSheet />
-        <StatCards members={members} />
-        {isAdmin && (
-          <MemberTable members={members} onEdit={handleEdit} onDelete={handleDelete} />
+        {activeTab === "home" && (
+          <>
+            <AnnouncementBoard text={announcement} onUpdate={setAnnouncement} />
+            <ProgramSheet />
+            <StatCards members={members} />
+            {isAdmin && (
+              <MemberTable members={members} onEdit={handleEdit} onDelete={handleDelete} />
+            )}
+          </>
         )}
+        {activeTab === "media" && <MediaPage />}
+        {activeTab === "settings" && <SettingsPage />}
       </main>
 
-      {/* FAB */}
-      <button
-        onClick={() => { setRegOpen(true); }}
-        className="fixed bottom-6 right-6 z-50 h-14 w-14 rounded-full bg-accent text-accent-foreground shadow-lg flex items-center justify-center hover:scale-105 transition-transform active:scale-95"
-        aria-label="Add member"
-      >
-        <Plus className="h-7 w-7" />
-      </button>
+      {/* FAB - only on home */}
+      {activeTab === "home" && (
+        <button
+          onClick={() => { setRegOpen(true); }}
+          className="fixed bottom-20 right-6 z-50 h-14 w-14 rounded-full bg-accent text-accent-foreground shadow-lg flex items-center justify-center hover:scale-105 transition-transform active:scale-95"
+          aria-label="Add member"
+        >
+          <Plus className="h-7 w-7" />
+        </button>
+      )}
+
+      <BottomNav active={activeTab} onChange={setActiveTab} />
 
       <RegistrationModal
         open={regOpen}
