@@ -50,18 +50,14 @@ const MediaPage = () => {
       {links.map((link) => (
         <Card key={link.id}>
           <CardContent className="flex items-center justify-between p-3">
-            <div className="flex-1 min-w-0 mr-2">
+            <a
+              href={link.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex-1 min-w-0 mr-2"
+            >
               <p className="text-sm font-medium truncate">{link.title}</p>
-              <a
-                href={link.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-xs text-primary hover:underline flex items-center gap-1"
-              >
-                <ExternalLink className="h-3 w-3 shrink-0" />
-                <span>Open</span>
-              </a>
-            </div>
+            </a>
             {isAdmin && (
               <Button variant="ghost" size="icon" className="h-8 w-8 text-destructive shrink-0" onClick={() => removeLink(type, link.id)}>
                 <Trash2 className="h-4 w-4" />
