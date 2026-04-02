@@ -17,12 +17,10 @@ const MediaPage = () => {
   const isAdmin = user.role === "super_admin";
 
   const [photos, setPhotos] = useState<MediaLink[]>([
-    { id: "1", title: "Sunday Service Gallery", url: "https://photos.google.com" },
-    { id: "2", title: "Youth Fellowship Photos", url: "https://photos.google.com" },
+    { id: "1", title: "Thlalak hlui", url: "https://photos.app.goo.gl/DbuF2f4po7Jacjh79" },
   ]);
   const [videos, setVideos] = useState<MediaLink[]>([
-    { id: "1", title: "Sunday Worship", url: "https://youtube.com" },
-    { id: "2", title: "Youth Fellowship Highlights", url: "https://youtube.com" },
+    { id: "1", title: "Zaipawlpui - Halleluiah Chorus", url: "https://youtu.be/9dR3aByYHoc?si=O38sBPCIqTjAn4i1" },
   ]);
 
   const [newTitle, setNewTitle] = useState("");

@@ -28,7 +28,7 @@ const MENU_PAGES = ["Branch C/m List", "Group C/m List", "Sub C/m List", "Branch
 const Index = () => {
   const { user, logout } = useAuth();
   const [members, setMembers] = useState<Member[]>(initialMembers);
-  const [announcement, setAnnouncement] = useState("Welcome to KTPRVL, Sunday service at 10 AM. Youth fellowship every Friday evening.");
+  const [announcement, setAnnouncement] = useState("KTP Ramhlun Venglai Branch member zawng zawng te chibai ka buk a che u. He app hi inzir nan a siam a ni e.");
   const [regOpen, setRegOpen] = useState(false);
   const [loginOpen, setLoginOpen] = useState(false);
   const [editMember, setEditMember] = useState<Member | null>(null);
