@@ -37,6 +37,7 @@ const Index = () => {
     "Group C/m List": "",
     "Sub C/m List": "",
     "Branch Inkaihhruaina": "",
+    "Member List": "",
   });
   const [activePage, setActivePage] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<"home" | "media" | "settings">("home");
