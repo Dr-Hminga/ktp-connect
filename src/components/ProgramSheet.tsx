@@ -14,8 +14,8 @@ import {
 
 const ProgramSheet = () => {
   const { user } = useAuth();
-  const [pdfUrl, setPdfUrl] = useState<string | null>(null);
-  const [pdfName, setPdfName] = useState<string>("");
+  const [pdfUrl, setPdfUrl] = useState<string | null>("/PROGRAM_2026_1.PDF");
+  const [pdfName, setPdfName] = useState<string>("PROGRAM_2026_1.PDF");
   const [viewOpen, setViewOpen] = useState(false);
 
   const handleUpload = (e: React.ChangeEvent<HTMLInputElement>) => {

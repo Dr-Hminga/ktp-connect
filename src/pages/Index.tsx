@@ -1,4 +1,5 @@
 import { useState, useMemo } from "react";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { useAuth } from "@/contexts/AuthContext";
 import { Member, generateMockMembers } from "@/data/mockData";
 import AnnouncementBoard from "@/components/AnnouncementBoard";
@@ -23,12 +24,12 @@ import MemberTable from "@/components/MemberTable";
 
 const initialMembers = generateMockMembers();
 
-const MENU_PAGES = ["Branch C/m List", "Group C/m List", "Sub C/m List", "Branch Inkaihhruaina"] as const;
+const MENU_PAGES = ["Branch C/m List", "Group C/m List", "Sub C/m List", "Branch Inkaihhruaina", "Member List"] as const;
 
 const Index = () => {
   const { user, logout } = useAuth();
   const [members, setMembers] = useState<Member[]>(initialMembers);
-  const [announcement, setAnnouncement] = useState("Welcome to KTPRVL, Sunday service at 10 AM. Youth fellowship every Friday evening.");
+  const [announcement, setAnnouncement] = useState("KTP Ramhlun Venglai Branch member zawng zawng te chibai ka buk a che u. He app hi inzir nan a siam a ni e.");
   const [regOpen, setRegOpen] = useState(false);
   const [loginOpen, setLoginOpen] = useState(false);
   const [editMember, setEditMember] = useState<Member | null>(null);
@@ -37,6 +38,7 @@ const Index = () => {
     "Group C/m List": "",
     "Sub C/m List": "",
     "Branch Inkaihhruaina": "",
+    "Member List": "",
   });
   const [activePage, setActivePage] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<"home" | "media" | "settings">("home");
@@ -141,7 +143,18 @@ const Index = () => {
         allowedGroup={user.role === "group_leader" ? user.group : undefined}
       />
       <LoginModal open={loginOpen} onOpenChange={setLoginOpen} />
-      {activePage && (
+      {activePage && activePage === "Member List" ? (
+        <Dialog open={!!activePage} onOpenChange={(open) => { if (!open) setActivePage(null); }}>
+          <DialogContent className="sm:max-w-3xl max-h-[80vh] flex flex-col">
+            <DialogHeader>
+              <DialogTitle className="text-primary">Member List</DialogTitle>
+            </DialogHeader>
+            <div className="flex-1 overflow-y-auto">
+              <MemberTable members={members} onEdit={handleEdit} onDelete={handleDelete} />
+            </div>
+          </DialogContent>
+        </Dialog>
+      ) : activePage ? (
         <ContentPage
           title={activePage}
           content={pageContents[activePage]}
@@ -149,7 +162,7 @@ const Index = () => {
           open={!!activePage}
           onOpenChange={(open) => { if (!open) setActivePage(null); }}
         />
-      )}
+      ) : null}
     </div>
   );
 };
