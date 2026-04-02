@@ -1,16 +1,17 @@
-import { useState } from "react";
+import { lazy, Suspense, useState } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Upload, FileText, Trash2, Eye } from "lucide-react";
 import { toast } from "sonner";
-import PdfViewer from "@/components/PdfViewer";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+
+const PdfViewer = lazy(() => import("@/components/PdfViewer"));
 
 const ProgramSheet = () => {
   const { user } = useAuth();
@@ -37,7 +38,7 @@ const ProgramSheet = () => {
   };
 
   const handleRemove = () => {
-    if (pdfUrl) URL.revokeObjectURL(pdfUrl);
+    if (pdfUrl?.startsWith("blob:")) URL.revokeObjectURL(pdfUrl);
     setPdfUrl(null);
     setPdfName("");
     toast.success("Program sheet removed");
@@ -102,7 +103,9 @@ const ProgramSheet = () => {
             <DialogTitle className="text-sm font-semibold">{pdfName}</DialogTitle>
           </DialogHeader>
           <div className="px-4 pb-4 overflow-auto" style={{ height: "calc(90vh - 80px)" }}>
-            {pdfUrl && <PdfViewer url={pdfUrl} />}
+            <Suspense fallback={<div className="flex items-center justify-center py-12 text-sm text-muted-foreground">Loading PDF...</div>}>
+              {pdfUrl && <PdfViewer url={pdfUrl} />}
+            </Suspense>
           </div>
         </DialogContent>
       </Dialog>
