@@ -142,7 +142,18 @@ const Index = () => {
         allowedGroup={user.role === "group_leader" ? user.group : undefined}
       />
       <LoginModal open={loginOpen} onOpenChange={setLoginOpen} />
-      {activePage && (
+      {activePage && activePage === "Member List" ? (
+        <Dialog open={!!activePage} onOpenChange={(open) => { if (!open) setActivePage(null); }}>
+          <DialogContent className="sm:max-w-3xl max-h-[80vh] flex flex-col">
+            <DialogHeader>
+              <DialogTitle className="text-primary">Member List</DialogTitle>
+            </DialogHeader>
+            <div className="flex-1 overflow-y-auto">
+              <MemberTable members={members} onEdit={handleEdit} onDelete={handleDelete} />
+            </div>
+          </DialogContent>
+        </Dialog>
+      ) : activePage ? (
         <ContentPage
           title={activePage}
           content={pageContents[activePage]}
@@ -150,7 +161,7 @@ const Index = () => {
           open={!!activePage}
           onOpenChange={(open) => { if (!open) setActivePage(null); }}
         />
-      )}
+      ) : null}
     </div>
   );
 };
