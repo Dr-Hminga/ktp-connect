@@ -23,7 +23,7 @@ import MemberTable from "@/components/MemberTable";
 
 const initialMembers = generateMockMembers();
 
-const MENU_PAGES = ["Branch C/m List", "Group C/m List", "Sub C/m List", "Branch Inkaihhruaina"] as const;
+const MENU_PAGES = ["Branch C/m List", "Group C/m List", "Sub C/m List", "Branch Inkaihhruaina", "Member List"] as const;
 
 const Index = () => {
   const { user, logout } = useAuth();
