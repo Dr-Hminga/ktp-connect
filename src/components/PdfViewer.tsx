@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import * as pdfjsLib from "pdfjs-dist";
+import pdfWorker from "pdfjs-dist/build/pdf.worker.min.mjs?url";
 
-pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.mjs`;
+pdfjsLib.GlobalWorkerOptions.workerSrc = pdfWorker;
 
 interface Props {
   url: string;
@@ -15,24 +16,31 @@ const PdfViewer = ({ url }: Props) => {
 
   useEffect(() => {
     let cancelled = false;
+    let pdfTask: ReturnType<typeof pdfjsLib.getDocument> | null = null;
 
     const render = async () => {
       setLoading(true);
       setError(null);
+
+      const container = containerRef.current;
+      if (container) container.innerHTML = "";
+
       try {
-        const pdf = await pdfjsLib.getDocument(url).promise;
+        pdfTask = pdfjsLib.getDocument({ url });
+        const pdf = await pdfTask.promise;
         if (cancelled) return;
+
         setPageCount(pdf.numPages);
 
-        const container = containerRef.current;
-        if (!container) return;
-        container.innerHTML = "";
+        const activeContainer = containerRef.current;
+        if (!activeContainer) return;
+        activeContainer.innerHTML = "";
 
         for (let i = 1; i <= pdf.numPages; i++) {
           const page = await pdf.getPage(i);
           if (cancelled) return;
 
-          const containerWidth = container.clientWidth || 380;
+          const containerWidth = activeContainer.clientWidth || 380;
           const unscaledViewport = page.getViewport({ scale: 1 });
           const scale = (containerWidth * window.devicePixelRatio) / unscaledViewport.width;
           const viewport = page.getViewport({ scale });
@@ -45,7 +53,7 @@ const PdfViewer = ({ url }: Props) => {
           canvas.style.marginBottom = "8px";
           canvas.style.borderRadius = "4px";
 
-          container.appendChild(canvas);
+          activeContainer.appendChild(canvas);
 
           const ctx = canvas.getContext("2d");
           if (ctx) {
@@ -61,7 +69,11 @@ const PdfViewer = ({ url }: Props) => {
     };
 
     render();
-    return () => { cancelled = true; };
+
+    return () => {
+      cancelled = true;
+      pdfTask?.destroy();
+    };
   }, [url]);
 
   return (
