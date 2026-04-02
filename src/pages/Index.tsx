@@ -1,4 +1,5 @@
 import { useState, useMemo } from "react";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { useAuth } from "@/contexts/AuthContext";
 import { Member, generateMockMembers } from "@/data/mockData";
 import AnnouncementBoard from "@/components/AnnouncementBoard";
