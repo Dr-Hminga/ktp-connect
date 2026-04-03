@@ -33,7 +33,7 @@ const SettingsPage = () => {
   });
 
   const [about, setAbout] = useState(
-    "KTPRVL - Kohhran Thianghlim Pawl, RVL Branch.\n\nA community management app for our church branch."
+    "KTPRVL app hi member ten awlsam zawk la program leh member list te kan vawn that theih nan te. Thlalak leh video awlsam taka kan en zung zung theih na tur atana unofficial a siam a ni e."
   );
   const [editing, setEditing] = useState(false);
   const [draft, setDraft] = useState(about);
