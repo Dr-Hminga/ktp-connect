@@ -19,6 +19,12 @@ const PdfViewer = ({ url }: Props) => {
       setLoading(true);
       setError(null);
 
+      // Set worker inline to avoid ?url import issues
+      if (!pdfjsLib.GlobalWorkerOptions.workerSrc) {
+        const workerModule = await import("pdfjs-dist/build/pdf.worker.min.mjs?url");
+        pdfjsLib.GlobalWorkerOptions.workerSrc = workerModule.default;
+      }
+
       const container = containerRef.current;
       if (container) container.innerHTML = "";
 
