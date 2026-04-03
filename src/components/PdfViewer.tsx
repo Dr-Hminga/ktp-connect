@@ -1,8 +1,5 @@
 import { useEffect, useRef, useState } from "react";
 import * as pdfjsLib from "pdfjs-dist";
-import pdfWorker from "pdfjs-dist/build/pdf.worker.min.mjs?url";
-
-pdfjsLib.GlobalWorkerOptions.workerSrc = pdfWorker;
 
 interface Props {
   url: string;
@@ -21,6 +18,12 @@ const PdfViewer = ({ url }: Props) => {
     const render = async () => {
       setLoading(true);
       setError(null);
+
+      // Set worker inline to avoid ?url import issues
+      if (!pdfjsLib.GlobalWorkerOptions.workerSrc) {
+        const workerModule = await import("pdfjs-dist/build/pdf.worker.min.mjs?url");
+        pdfjsLib.GlobalWorkerOptions.workerSrc = workerModule.default;
+      }
 
       const container = containerRef.current;
       if (container) container.innerHTML = "";
